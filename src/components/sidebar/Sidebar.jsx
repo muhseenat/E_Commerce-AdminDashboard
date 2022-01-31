@@ -5,13 +5,15 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  AttachMoney,
+  CategoryOutlined,
   BarChart,
   MailOutline,
   DynamicFeed,
+  LocalOfferOutlined,
   ChatBubbleOutline,
   WorkOutline,
   Report,
+  LocalShippingOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -23,15 +25,12 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-            <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" />
-              Home
-            </li>
+              <li className="sidebarListItem ">
+                <LineStyle className="sidebarIcon" />
+                Home
+              </li>
             </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
+
             <li className="sidebarListItem">
               <TrendingUp className="sidebarIcon" />
               Sales
@@ -53,17 +52,23 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/category" className="link">
+              <li className="sidebarListItem">
+                <CategoryOutlined className="sidebarIcon" />
+                Category
+              </li>
+              <li className="sidebarListItem">
+                <LocalShippingOutlined className="sidebarIcon" />
+                Order
+              </li>
+            </Link>
             <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
+              <LocalOfferOutlined className="sidebarIcon" />
+              Offer
             </li>
           </ul>
         </div>
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
@@ -96,7 +101,7 @@ export default function Sidebar() {
               Reports
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
