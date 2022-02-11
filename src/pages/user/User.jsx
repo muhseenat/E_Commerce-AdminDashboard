@@ -3,58 +3,89 @@ import {
     LocationSearching,
     MailOutline,
     PermIdentity,
+    AccountCircleOutlined,
     PhoneAndroid,
     Publish,
   } from "@material-ui/icons";
-  import { Link } from "react-router-dom";
+  // import { Link } from "react-router-dom";
   import "./user.css";
-  
+  import { useEffect ,useState} from "react";
+  import { useNavigate,useLocation} from 'react-router-dom';
+ import axios from '../../axios'
+
+
   export default function User() {
+   const navigate = useNavigate()
+   const location = useLocation();
+   const id=location.pathname.split('/')[2];
+   const [user,setUser]=useState("")
+ console.log(id);
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+        return false;
+      }
+      getDataById();
+      
+    }, [])
+    const getDataById=()=>{
+       axios.get(`users/getuser/${id}`).then((resp)=>{
+
+         console.log(resp);
+     setUser(resp.data.resp)
+       })
+  
+    
+  
+    }
+   
+
     return (
       <div className="user">
         <div className="userTitleContainer">
-          <h1 className="userTitle">Edit User</h1>
+          <h1 className="userTitle">View User</h1>
           
         </div>
         <div className="userContainer">
           <div className="userShow">
             <div className="userShowTop">
-              <img
+              {/* <img
                 src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                 alt=""
                 className="userShowImg"
-              />
+              /> */}
               <div className="userShowTopTitle">
-                <span className="userShowUsername">Anna Becker</span>
-                <span className="userShowUserTitle">Software Engineer</span>
+                <span className="userShowUsername">{user.name}</span>
+                {/* <span className="userShowUserTitle">Software Engineer</span> */}
               </div>
             </div>
             <div className="userShowBottom">
               <span className="userShowTitle">Account Details</span>
               <div className="userShowInfo">
                 <PermIdentity className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99</span>
+                <span className="userShowInfoTitle"> ID : {user._id}</span>
               </div>
               <div className="userShowInfo">
                 <CalendarToday className="userShowIcon" />
-                <span className="userShowInfoTitle">10.12.1999</span>
+                <span className="userShowInfoTitle">{user.createdAt}</span>
               </div>
               <span className="userShowTitle">Contact Details</span>
               <div className="userShowInfo">
                 <PhoneAndroid className="userShowIcon" />
-                <span className="userShowInfoTitle">+1 123 456 67</span>
+                <span className="userShowInfoTitle">{user.phone}</span>
               </div>
               <div className="userShowInfo">
                 <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+                <span className="userShowInfoTitle">{user.email}</span>
               </div>
               <div className="userShowInfo">
-                <LocationSearching className="userShowIcon" />
-                <span className="userShowInfoTitle">New York | USA</span>
+                <AccountCircleOutlined className="userShowIcon" />
+                <span className="userShowInfoTitle"> STATUS : {user.status ?'ACTIVE' :'BLOCKED'}</span>
               </div>
             </div>
           </div>
-          <div className="userUpdate">
+          {/* <div className="userUpdate">
             <span className="userUpdateTitle">Edit</span>
             <form className="userUpdateForm">
               <div className="userUpdateLeft">
@@ -114,7 +145,7 @@ import {
                 <button className="userUpdateButton">Update</button>
               </div>
             </form>
-          </div>
+          </div> */}
         </div>
       </div>
     );

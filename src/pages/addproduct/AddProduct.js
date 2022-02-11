@@ -1,4 +1,5 @@
 import React, { useState ,useRef} from "react";
+import {useNavigate} from 'react-router-dom'
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -23,6 +24,7 @@ const MenuProps = {
 };
 
 function AddProduct() {
+  const navigate=useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategory, setSubCategory] = useState([]);
   const [productName, setProductName] = useState("");
@@ -124,7 +126,7 @@ function AddProduct() {
        setimg2({})
        setimg3({})
        setimg4({})
-
+      navigate('/products')
      }).catch((error)=>{
        console.log(error);
      })

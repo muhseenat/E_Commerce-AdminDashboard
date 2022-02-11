@@ -18,6 +18,12 @@ import {
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
+
+  const token=localStorage.getItem('token');
+
+if(!token){
+  return <></>
+}
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">

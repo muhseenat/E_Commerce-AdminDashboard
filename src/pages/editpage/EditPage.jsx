@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -29,7 +29,7 @@ function EditProduct() {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState([]);
   const [quantity, setQuantity] = useState("");
   const [discount, setDiscount] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
@@ -41,9 +41,9 @@ function EditProduct() {
   const input2 = useRef();
   const input3 = useRef();
   const input4 = useRef();
-  const { id } = useParams();
-  console.log(id + "thisis id");
-
+ const location= useLocation();
+ const id = location.pathname.split('/')[2]
+console.log(id);
   useEffect(() => {
     getProductById();
   }, []);
@@ -52,18 +52,21 @@ function EditProduct() {
     axios
       .get(`product/getproductbyid/${id}`)
       .then((resp) => {
-        setProductName(resp.data.name);
-        setSelectedCategory(resp.data.mainCategory);
-        setSelectedSubCategory(resp.data.subCategory);
-        setDescription(resp.data.description);
-        setPrice(resp.data.price);
-        setSize(resp.data.size);
-        setQuantity(resp.data.quantity);
-        setDiscount(resp.data.size);
-        // setimg1({})
-        // setimg2({})
-        // setimg4({})
-        // setimg1({})
+        console.log(resp);
+        const product=resp.data.product
+        console.log(product);
+        setProductName(product.name);
+        setSelectedCategory(product.mainCategory);
+        setSelectedSubCategory(product.subCategory);
+        setDescription(product.description);
+        setPrice(product.price);
+        setSize(product.size[0]);
+        setQuantity(product.quantity);
+        setDiscount(product.discount);
+        setimg1(product.img1[0].url)
+        setimg2(product.img2[0].url)
+        setimg3(product.img3[0].url)
+        setimg4(product.img4[0].url)
       })
       .catch((error) => {
         console.log(error);
@@ -121,8 +124,7 @@ function EditProduct() {
     }
   };
 
-  const dummyimg =
-    "https://www.bastiaanmulder.nl/wp-content/uploads/2013/11/dummy-image-square.jpg";
+  
 
   const updateproduct = () => {
     const data = {
@@ -144,7 +146,7 @@ function EditProduct() {
     formData.append("data", JSON.stringify(data));
     console.log(formData);
     axios
-      .post("product/updateProduct", formData, {
+      .put(`product/updateproduct/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -307,12 +309,12 @@ function EditProduct() {
             }}
           >
             <div>
-              <img
+              <img 
                 onClick={() => {
                   triggerInput(input1);
                 }}
                 style={{ height: "150px" }}
-                src={img1.url || dummyimg}
+                src={img1.url || img1}
               />
               <input
                 hidden
@@ -328,7 +330,7 @@ function EditProduct() {
                   triggerInput(input2);
                 }}
                 style={{ height: "150px" }}
-                src={img2.url || dummyimg}
+                src={img2.url|| img2}
               />
               <input
                 hidden
@@ -344,7 +346,7 @@ function EditProduct() {
                   triggerInput(input3);
                 }}
                 style={{ height: "150px" }}
-                src={img3.url || dummyimg}
+                src={img3.url||img3}
               />
               <input
                 hidden
@@ -360,7 +362,7 @@ function EditProduct() {
                   triggerInput(input4);
                 }}
                 style={{ height: "150px" }}
-                src={img4.url || dummyimg}
+                src={img4.url || img4}
               />
               <input
                 hidden

@@ -1,4 +1,4 @@
-import "./userList.css";
+import "./searchuser.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 
@@ -7,7 +7,7 @@ import axios from "../../axios";
 import { useState, useEffect } from "react";
 import {Button ,Box,TextField,}from "@mui/material"
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-export default function UserList() {
+export default function SearchTable() {
   const [data, setData] = useState([]);
   const [search,setSearch] = useState("")
   const navigate = useNavigate()
@@ -60,7 +60,7 @@ export default function UserList() {
         return (
           <>
             <Link to={"/user/" + params.row.id}>
-              <button className="userListEdit">View</button>
+              <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="userListDelete"
@@ -74,7 +74,7 @@ export default function UserList() {
 
   return (
     <div className="userList" style={{ width: '100%', margin: "75px"  }}>
-{/*      
+     
           <Box>
           <TextField 
             style={{ margin: "0 0 25px" }}
@@ -100,7 +100,7 @@ export default function UserList() {
           >
           <SearchOutlinedIcon />
           </Button></Link>
-        </Box> */}
+        </Box>
 
       <DataGrid
         rows={data}
@@ -109,7 +109,6 @@ export default function UserList() {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
-        autoHeight={true}
       />
     </div>
   );
