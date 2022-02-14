@@ -63,11 +63,13 @@ if(!token){
                 <CategoryOutlined className="sidebarIcon" />
                 Category
               </li>
+              </Link>
+              <Link to="/order" className="link">
               <li className="sidebarListItem">
                 <LocalShippingOutlined className="sidebarIcon" />
                 Order
               </li>
-            </Link>
+              </Link>
             <li className="sidebarListItem">
               <LocalOfferOutlined className="sidebarIcon" />
               Offer

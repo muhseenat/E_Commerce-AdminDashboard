@@ -12,6 +12,7 @@ import EditProduct from "./pages/editpage/EditPage";
 import ViewProduct from "./pages/productList/ViewProduct";
 import Login from "./pages/login/Login";
 import SearchTable from "./pages/searchuser/Searchuser";
+import Order from "./pages/order/Order";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/product/:Id" element={<EditProduct />}></Route>
           <Route exact path="/addproduct" element={<AddProduct />}></Route>
           <Route exact path="/category" element={<Category />}></Route>
+          <Route exact path="/order" element={<Order />}></Route>
           <Route exact path="/search/name/:search" element={<SearchTable/>}></Route>
           {/* <Route exact path="/editproduct" element={<EditProduct />}></Route> */}
          

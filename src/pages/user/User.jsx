@@ -1,13 +1,13 @@
 import {
     CalendarToday,
-    LocationSearching,
+  
     MailOutline,
     PermIdentity,
     AccountCircleOutlined,
     PhoneAndroid,
     Publish,
   } from "@material-ui/icons";
-  // import { Link } from "react-router-dom";
+ 
   import "./user.css";
   import { useEffect ,useState} from "react";
   import { useNavigate,useLocation} from 'react-router-dom';
@@ -50,11 +50,7 @@ import {
         <div className="userContainer">
           <div className="userShow">
             <div className="userShowTop">
-              {/* <img
-                src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                alt=""
-                className="userShowImg"
-              /> */}
+             
               <div className="userShowTopTitle">
                 <span className="userShowUsername">{user.name}</span>
                 {/* <span className="userShowUserTitle">Software Engineer</span> */}
@@ -147,6 +143,6 @@ import {
             </form>
           </div> */}
         </div>
-      </div>
+      </div> ///dont use this page.........
     );
   }
