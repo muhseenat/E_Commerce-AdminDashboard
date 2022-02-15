@@ -70,10 +70,10 @@ if(!token){
                 Order
               </li>
               </Link>
-            <li className="sidebarListItem">
+            {/* <li className="sidebarListItem">
               <LocalOfferOutlined className="sidebarIcon" />
               Offer
-            </li>
+            </li> */}
           </ul>
         </div>
         {/* <div className="sidebarMenu">
