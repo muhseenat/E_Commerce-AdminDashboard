@@ -14,6 +14,8 @@ import Login from "./pages/login/Login";
 import SearchTable from "./pages/searchuser/Searchuser";
 import Order from "./pages/order/Order";
 import CouponOffer from "./pages/offer/CouponOffer";
+import ProductOffer from "./pages/offer/ProductOffer";
+import CategoryOffer from "./pages/offer/CategoryOffer";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route exact path="/category" element={<Category />}></Route>
           <Route exact path="/order" element={<Order />}></Route>
           <Route exact path="/offer/coupon" element={<CouponOffer />}></Route>
+          <Route exact path="/offer/product" element={<ProductOffer/>}></Route>
+          <Route exact path="/offer/category" element={<CategoryOffer />}></Route>
           <Route exact path="/search/name/:search" element={<SearchTable/>}></Route>
           {/* <Route exact path="/editproduct" element={<EditProduct />}></Route> */}
          
