@@ -55,15 +55,14 @@ function AddProduct() {
   }
 
   const triggerInput=(target)=>{
-    console.log(target.current);
+   
        target.current.click()
   }
 
   const selectimg1=(e)=>{
     if(e.target.files.length>0){
 
-      console.log("not happening anything....");
-      console.log(e.target.files);
+ 
      const file =e.target.files[0]
      const url=URL.createObjectURL(file)
      console.log({file,url});
@@ -111,8 +110,7 @@ function AddProduct() {
          
        }
      }).then((resp)=>{
-       console.log(resp.data);
-       console.log(resp.data.product);
+       
        alert("Successfully addedd")
        setProductName("")
        setSelectedCategory("")
