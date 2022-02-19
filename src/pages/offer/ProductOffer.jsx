@@ -56,8 +56,8 @@ useEffect(()=>{
      })
  }
 
-  return (
-    <div className='offerpage'>
+  return 
+    <div className='offerpage'>q
     
     <Box>
         <Button
