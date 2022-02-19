@@ -79,11 +79,14 @@ useEffect(()=>{
       <Box style={{ marginTop: "10px", marginLeft: "10px" }}>
         <h2 style={{ margin: "25px" }}> Product Offer</h2>
       </Box>
+      <form style={{textDecoration:"none",margin:"25px",padding:"10px"}} onSubmit={createOffer}>
+
       <FormControl sx={{ m: 5, width: 300 }}>
         <InputLabel>Select Product</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
+          required
           onChange={(e) => {
             setSelectedProduct(e.target.value);
           }}
@@ -103,6 +106,7 @@ useEffect(()=>{
             style={{ marginTop: "10px" }}
             id="outlined-basic"
             value={discount}
+            required
             label="Enter Discount"
             variant="outlined"
             onChange={(e) => {
@@ -122,15 +126,16 @@ useEffect(()=>{
       /> */}
         <Box>
           <Button
+          type='submit'
             style={{ marginTop: "30px" }}
             variant="contained"
-            onClick={createOffer}
+           
           >
             Add
           </Button>
         </Box>
       </FormControl>
-    
+    </form>
     </div>
   )
 }

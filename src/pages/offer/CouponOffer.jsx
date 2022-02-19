@@ -53,23 +53,24 @@ function CouponOffer() {
           Product Offer
         </Button>
         <Button
-          style={{ margin: "50px", alignItems: "center" }}
+          style={{ margin: "25px", alignItems: "center" }}
           variant="contained"
           onClick={()=>navigate('/offer/category')}
         >
           Category Offer
         </Button>
       </Box>
-      <Box style={{ marginTop: "10px", marginLeft: "10px" }}>
+      <Box style={{ marginLeft: "10px" }}>
         <h2 style={{ margin: "25px" }}> CouponOffer</h2>
       </Box>
-
+      <form style={{textDecoration:"none",margin:"25px",padding:"10px"}} onSubmit={createCoupon}>
       <Box>
         <TextField
           style={{ marginTop: "10px", marginLeft: "10px" }}
           id="outlined-basic"
           label="Coupon Name"
           variant="outlined"
+          required
           value={name}
           onChange={(e)=>setName(e.target.value)}
          
@@ -80,7 +81,7 @@ function CouponOffer() {
           label="Discount Percentage"
           variant="outlined"
           value={discount}
-
+           required
           onChange={(e)=>setDiscount(e.target.value)}
 
         />
@@ -93,24 +94,27 @@ function CouponOffer() {
           label="Max-Amount"
           value={maxamount}
           variant="outlined"
+          required
           onChange={(e)=>setMaxamount(e.target.value)}
 
         />
-        <TextField
+        {/* <TextField
           style={{ marginTop: "10px", marginLeft: "10px" }}
           id="outlined-basic"
           label="Min-Amount"
           variant="outlined"
+          required
           value={minamount}
           onChange={(e)=>setMinamount(e.target.value)}
           
-        />
+        /> */}
       </Box>
       <TextField
         style={{ marginTop: "10px", marginLeft: "10px" }}
         id="outlined-basic"
         label="Min-Purchase"
         variant="outlined"
+        required
         onChange={(e)=>setMinPurchase(e.target.value)}
         value={minPurchase}
 
@@ -121,7 +125,7 @@ function CouponOffer() {
         label="Coupon code"
         variant="outlined"
         value={couponcode}
-
+        required
         onChange={(e)=>setCouponcode(e.target.value)}
 
       />
@@ -129,7 +133,7 @@ function CouponOffer() {
       <TextField
         style={{ marginTop: "10px", marginLeft: "10px" }}
         id="outlined-basic"
-      
+        required
         variant="outlined"
         type='date'
           value={expdate}
@@ -142,11 +146,12 @@ function CouponOffer() {
         <Button
           style={{ marginTop: "10px", marginLeft: "10px" }}
           variant="contained"
-          onClick={createCoupon}
+         
         >
           Create
         </Button>
       </Box>
+      </form>
     </div>
   );
 }

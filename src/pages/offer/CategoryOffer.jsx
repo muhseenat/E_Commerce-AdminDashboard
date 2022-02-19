@@ -27,10 +27,10 @@ function CategoryOffer() {
   const navigate= useNavigate()
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
-  const [category, setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+ 
   const [discount, setDiscount] = useState();
-  const [expdate, setExpDate] = useState();
+  // const [expdate, setExpDate] = useState();
 
   const categoryOptions = ["Clothes", "Hijab", "Accessories"];
 
@@ -46,7 +46,7 @@ function CategoryOffer() {
 }
  
   const createOffer=()=>{
-    const payload={selectedCategory,discount}
+    const payload={selectedCategory,selectedSubCategory,discount}
     axios.put('/product/category-offer',payload).then((resp)=>{
         console.log(resp);
     }).catch((err)=>{
@@ -74,7 +74,8 @@ function CategoryOffer() {
       <Box style={{ marginTop: "10px", marginLeft: "10px" }}>
         <h2 style={{ margin: "25px" }}> Category Offer</h2>
       </Box>
-      <FormControl sx={{ m: 5, width: 300 }}>
+      <form style={{textDecoration:"none",margin:"25px",padding:"10px"}} onSubmit={createOffer}>
+      <FormControl sx={{ m: 5, width: 300 }} >
         <InputLabel>Select MainCategory</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
@@ -82,6 +83,7 @@ function CategoryOffer() {
           onChange={(e)=>{getSubCategory(e.target.value)}}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
+          required
         >
          {categoryOptions.map((category, index) => {
                 return (
@@ -92,10 +94,12 @@ function CategoryOffer() {
               })}
         </Select>
         <Select
+          style={{ marginTop: "10px" }}
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
               disabled={subCategory.length>0?false:true}
               input={<OutlinedInput label="Name" />}
+              required
               MenuProps={MenuProps} onChange={(e)=>{setSelectedSubCategory(e.target.value)}}>
               {subCategory.map((category, index) => {
                 return (
@@ -107,6 +111,7 @@ function CategoryOffer() {
             </Select>
         <Box>
           <TextField
+          required
             style={{ marginTop: "10px" }}
             id="outlined-basic"
             value={discount}
@@ -117,26 +122,29 @@ function CategoryOffer() {
             }}
           />
         </Box>
-        <TextField
+        {/* <TextField
         style={{ marginTop: "10px" }}
         id="outlined-basic"
       
         variant="outlined"
         type='date'
           value={expdate}
+          required={true}
         onChange={(e)=>setExpDate(e.target.value)}
 
-      />
+      /> */}
         <Box>
           <Button
+           type="submit"
             style={{ marginTop: "30px" }}
             variant="contained"
-            onClick={createOffer}
+         
           >
             Add
           </Button>
         </Box>
       </FormControl>
+      </form>
     </div>
   )
 }
