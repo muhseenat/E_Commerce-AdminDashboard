@@ -32,14 +32,15 @@ function ProductOffer() {
 
  const navigate = useNavigate()
  const [selectedProduct, setSelectedProduct] = useState("");
- const [products, setProducts] = useState([]);
+ const [products, setProducts] = useState([{}]);
  const [discount, setDiscount] = useState();
  const [expdate, setExpDate] = useState();
 
 useEffect(()=>{
-    axios.get('/product/get-products').then((resp)=>[
+    axios.get('/product/get-products').then((resp)=>{
+      console.log(resp);
         setProducts(resp?.data?.products)
-    ]).catch((err)=>{
+    }).catch((err)=>{
         console.log(err);
     })
 },[])
@@ -56,21 +57,21 @@ useEffect(()=>{
      })
  }
 
-  return 
-    <div className='offerpage'>q
+  return (
+    <div className='offerpage'>
     
     <Box>
         <Button
           style={{ margin: "50px", alignItems: "center" }}
           variant="contained"
-          onClick={()=>navigate('/offer/coupon')}
+          onClick={(e)=>navigate('/offer/coupon')}
         >
           Coupon Offer
         </Button>
         <Button
           style={{ margin: "50px", alignItems: "center" }}
           variant="contained"
-          onClick={()=>navigate('/offer/category')}
+          onClick={(e)=>navigate('/offer/category')}
         >
           Category Offer
         </Button>
@@ -89,10 +90,10 @@ useEffect(()=>{
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
         >
-          {products.map((product, index) => {
+          {products.map((product,index) => {
             return (
-              <MenuItem key={index} value={product}>
-                {product}
+              <MenuItem key={index} value={product._id}>
+                {product.name}
               </MenuItem>
             );
           })}
@@ -109,7 +110,7 @@ useEffect(()=>{
             }}
           />
         </Box>
-        <TextField
+        {/* <TextField
         style={{ marginTop: "10px" }}
         id="outlined-basic"
       
@@ -118,7 +119,7 @@ useEffect(()=>{
           value={expdate}
         onChange={(e)=>setExpDate(e.target.value)}
 
-      />
+      /> */}
         <Box>
           <Button
             style={{ marginTop: "30px" }}

@@ -26,11 +26,25 @@ const MenuProps = {
 function CategoryOffer() {
   const navigate= useNavigate()
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
   const [category, setCategory] = useState([]);
   const [discount, setDiscount] = useState();
   const [expdate, setExpDate] = useState();
 
+  const categoryOptions = ["Clothes", "Hijab", "Accessories"];
 
+  const getSubCategory=(mainCat)=>{
+    setSelectedCategory(mainCat);
+  axios.get(`category/getSubCategory?main=${mainCat}`).then((resp)=>{
+      console.log(resp.data.data);
+      setSubCategory(resp.data.data)
+  }).catch((error)=>{
+      console.log(error);
+  })
+  
+}
+ 
   const createOffer=()=>{
     const payload={selectedCategory,discount}
     axios.put('/product/category-offer',payload).then((resp)=>{
@@ -61,24 +75,36 @@ function CategoryOffer() {
         <h2 style={{ margin: "25px" }}> Category Offer</h2>
       </Box>
       <FormControl sx={{ m: 5, width: 300 }}>
-        <InputLabel>Select Product</InputLabel>
+        <InputLabel>Select MainCategory</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
-          onChange={(e) => {
-            setSelectedCategory(e.target.value);
-          }}
+          onChange={(e)=>{getSubCategory(e.target.value)}}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
         >
-          {category.map((product, index) => {
-            return (
-              <MenuItem key={index} value={product}>
-                {product}
-              </MenuItem>
-            );
-          })}
+         {categoryOptions.map((category, index) => {
+                return (
+                  <MenuItem key={index} value={category}>
+                    {category}
+                  </MenuItem>
+                );
+              })}
         </Select>
+        <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              disabled={subCategory.length>0?false:true}
+              input={<OutlinedInput label="Name" />}
+              MenuProps={MenuProps} onChange={(e)=>{setSelectedSubCategory(e.target.value)}}>
+              {subCategory.map((category, index) => {
+                return (
+                  <MenuItem key={index} value={category}>
+                    {category}
+                  </MenuItem>
+                );
+              })}
+            </Select>
         <Box>
           <TextField
             style={{ marginTop: "10px" }}
