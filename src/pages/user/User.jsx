@@ -64,7 +64,7 @@ import {
               </div>
               <div className="userShowInfo">
                 <CalendarToday className="userShowIcon" />
-                <span className="userShowInfoTitle">{user.createdAt}</span>
+                <span className="userShowInfoTitle">{new Date(user.createdAt).toDateString()}</span>
               </div>
               <span className="userShowTitle">Contact Details</span>
               <div className="userShowInfo">
