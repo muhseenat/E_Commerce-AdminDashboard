@@ -46,7 +46,7 @@ function CategoryOffer() {
 }
  
   const createOffer=()=>{
-    const payload={selectedCategory,selectedSubCategory,discount}
+    const payload={selectedSubCategory,discount}
     axios.put('/product/category-offer',payload).then((resp)=>{
         console.log(resp);
     }).catch((err)=>{
