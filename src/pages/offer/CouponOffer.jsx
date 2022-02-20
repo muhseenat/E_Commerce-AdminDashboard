@@ -10,20 +10,20 @@ function CouponOffer() {
   const [name, setName] = useState("");
   const [discount, setDiscount] = useState("");
   const [maxamount, setMaxamount] = useState("");
-  const [minamount, setMinamount] = useState("");
+  // const [minamount, setMinamount] = useState("");
   const [minPurchase, setMinPurchase] = useState("");
   const [couponcode, setCouponcode] = useState("");
   const [error, setError] = useState("");
   const [expdate, setExpDate] = useState("");
  const navigate = useNavigate();
    const createCoupon =()=>{
-      const payload={name,discount,maxamount,minamount,couponcode,expdate,minPurchase}
+      const payload={name,discount,maxamount,couponcode,expdate,minPurchase}
       axios.post('product/offer/coupon',payload).then((resp)=>{
           console.log(resp);
           setName("");
           setDiscount("");
           setMaxamount("");
-          setMinamount("");
+          // setMinamount("");
           setMinPurchase("");
           setCouponcode("");
           setExpDate("");
@@ -34,7 +34,7 @@ function CouponOffer() {
          setName("");
          setDiscount("");
          setMaxamount("");
-         setMinamount("");
+        //  setMinamount("");
          setMinPurchase("");
          setCouponcode("");
          setExpDate("");
