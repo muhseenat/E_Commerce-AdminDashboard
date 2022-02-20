@@ -16,6 +16,7 @@ import Order from "./pages/order/Order";
 import CouponOffer from "./pages/offer/CouponOffer";
 import ProductOffer from "./pages/offer/ProductOffer";
 import CategoryOffer from "./pages/offer/CategoryOffer";
+import SalesReport from "./pages/salesreport/SalesReport";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route exact path="/offer/coupon" element={<CouponOffer />}></Route>
           <Route exact path="/offer/product" element={<ProductOffer/>}></Route>
           <Route exact path="/offer/category" element={<CategoryOffer />}></Route>
+          <Route exact path="/sales" element={<SalesReport />}></Route>
           <Route exact path="/search/name/:search" element={<SearchTable/>}></Route>
           {/* <Route exact path="/editproduct" element={<EditProduct />}></Route> */}
          

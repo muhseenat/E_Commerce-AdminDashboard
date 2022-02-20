@@ -36,11 +36,13 @@ if(!token){
                 Home
               </li>
             </Link>
+            <Link to='/sales' className="link">
 
             <li className="sidebarListItem">
               <TrendingUp className="sidebarIcon" />
               Sales
             </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
