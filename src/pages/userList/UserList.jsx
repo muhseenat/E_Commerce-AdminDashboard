@@ -1,21 +1,18 @@
 import "./userList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { useState, useEffect } from "react";
-import {Button ,Box,TextField,}from "@mui/material"
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+
 export default function UserList() {
   const [data, setData] = useState([]);
-  const [search,setSearch] = useState("")
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("users/getusers")
       .then((resp) => {
-        console.log(resp.data);
         setData(() => {
           return resp.data?.users.map((i) => {
             return { ...i, id: i._id };
@@ -26,24 +23,24 @@ export default function UserList() {
         console.log(error);
       });
   }, []);
-  
 
-  const handleBlock=(id)=>{
-    axios.put(`users/block/${id}`).then((resp)=>{
-      console.log(resp);
-      navigate('/users')
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }
-  
+  const handleBlock = (id) => {
+    axios
+      .put(`users/block/${id}`)
+      .then((resp) => {
+        navigate("/users");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
       field: "name",
       headerName: "User",
       width: 200,
-     
     },
     { field: "email", headerName: "Email", width: 200 },
     {
@@ -51,7 +48,7 @@ export default function UserList() {
       headerName: "Status",
       width: 120,
     },
-    
+
     {
       field: "action",
       headerName: "Action",
@@ -73,35 +70,7 @@ export default function UserList() {
   ];
 
   return (
-    <div className="userList" style={{ width: '100%', margin: "75px"  }}>
-{/*      
-          <Box>
-          <TextField 
-            style={{ margin: "0 0 25px" }}
-            id="outlined-basic"
-           
-            label="search"
-            variant="outlined"
-            value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-            }}
-            
-          />
-        <Link
-                to={`/search/name/${
-                  search.length == 0 ? "nofilter" : search
-                }`}
-              >
-          <Button
-            style={{ margin: "0 0 25px",height:"55px" }}
-            variant="contained"
-           
-          >
-          <SearchOutlinedIcon />
-          </Button></Link>
-        </Box> */}
-
+    <div className="userList" style={{ width: "100%", margin: "75px" }}>
       <DataGrid
         rows={data}
         disableSelectionOnClick

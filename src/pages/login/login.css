@@ -65,7 +65,7 @@ form {
   width: 100%;
   padding: 12px;
   font-size: 18px;
-  background: #CBAB22;
+  background: teal;
   color: #fff;
   border: none;
   border-radius: 100px;
@@ -75,9 +75,7 @@ form {
   transition: background 0.2s ease-out;
 }
 
-/* .login:hover {
-  background: #fff;
-} */
+
 
 @media(max-width: 458px) {
   

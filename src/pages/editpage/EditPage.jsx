@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -41,9 +41,10 @@ function EditProduct() {
   const input2 = useRef();
   const input3 = useRef();
   const input4 = useRef();
- const location= useLocation();
- const id = location.pathname.split('/')[2]
-console.log(id);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  console.log(id);
   useEffect(() => {
     getProductById();
   }, []);
@@ -53,7 +54,7 @@ console.log(id);
       .get(`product/getproductbyid/${id}`)
       .then((resp) => {
         console.log(resp);
-        const product=resp.data.product
+        const product = resp.data.product;
         console.log(product);
         setProductName(product.name);
         setSelectedCategory(product.mainCategory);
@@ -63,10 +64,10 @@ console.log(id);
         setSize(product.size[0]);
         setQuantity(product.quantity);
         setDiscount(product.discount);
-        setimg1(product.img1[0].url)
-        setimg2(product.img2[0].url)
-        setimg3(product.img3[0].url)
-        setimg4(product.img4[0].url)
+        setimg1(product.img1[0].url);
+        setimg2(product.img2[0].url);
+        setimg3(product.img3[0].url);
+        setimg4(product.img4[0].url);
       })
       .catch((error) => {
         console.log(error);
@@ -78,7 +79,6 @@ console.log(id);
     axios
       .get(`category/getSubCategory?main=${mainCat}`)
       .then((resp) => {
-        console.log(resp.data.data);
         setSubCategory(resp.data.data);
       })
       .catch((error) => {
@@ -87,17 +87,14 @@ console.log(id);
   };
 
   const triggerInput = (target) => {
-    console.log(target.current);
     target.current.click();
   };
 
   const selectimg1 = (e) => {
     if (e.target.files.length > 0) {
-      console.log("not happening anything....");
-      console.log(e.target.files);
       const file = e.target.files[0];
       const url = URL.createObjectURL(file);
-      console.log({ file, url });
+
       setimg1({ file, url });
     }
   };
@@ -124,8 +121,6 @@ console.log(id);
     }
   };
 
-  
-
   const updateproduct = () => {
     const data = {
       productName,
@@ -142,9 +137,8 @@ console.log(id);
     formData.append("img", img2.file);
     formData.append("img", img3.file);
     formData.append("img", img4.file);
-
     formData.append("data", JSON.stringify(data));
-    console.log(formData);
+
     axios
       .put(`product/updateproduct/${id}`, formData, {
         headers: {
@@ -152,8 +146,6 @@ console.log(id);
         },
       })
       .then((resp) => {
-        console.log(resp.data);
-        alert("Successfully addedd");
         setProductName("");
         setSelectedCategory("");
         setSelectedSubCategory("");
@@ -166,6 +158,7 @@ console.log(id);
         setimg2({});
         setimg3({});
         setimg4({});
+        navigate("/products");
       })
       .catch((error) => {
         console.log(error);
@@ -309,7 +302,7 @@ console.log(id);
             }}
           >
             <div>
-              <img 
+              <img
                 onClick={() => {
                   triggerInput(input1);
                 }}
@@ -330,7 +323,7 @@ console.log(id);
                   triggerInput(input2);
                 }}
                 style={{ height: "150px" }}
-                src={img2.url|| img2}
+                src={img2.url || img2}
               />
               <input
                 hidden
@@ -346,7 +339,7 @@ console.log(id);
                   triggerInput(input3);
                 }}
                 style={{ height: "150px" }}
-                src={img3.url||img3}
+                src={img3.url || img3}
               />
               <input
                 hidden

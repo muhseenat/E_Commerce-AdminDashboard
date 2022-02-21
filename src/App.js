@@ -11,7 +11,6 @@ import Error from "./pages/error/Error";
 import EditProduct from "./pages/editpage/EditPage";
 import ViewProduct from "./pages/productList/ViewProduct";
 import Login from "./pages/login/Login";
-import SearchTable from "./pages/searchuser/Searchuser";
 import Order from "./pages/order/Order";
 import CouponOffer from "./pages/offer/CouponOffer";
 import ProductOffer from "./pages/offer/ProductOffer";
@@ -40,7 +39,7 @@ function App() {
           <Route exact path="/offer/product" element={<ProductOffer/>}></Route>
           <Route exact path="/offer/category" element={<CategoryOffer />}></Route>
           <Route exact path="/sales" element={<SalesReport />}></Route>
-          <Route exact path="/search/name/:search" element={<SearchTable/>}></Route>
+         
           {/* <Route exact path="/editproduct" element={<EditProduct />}></Route> */}
          
           

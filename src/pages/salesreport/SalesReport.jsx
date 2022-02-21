@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-// import { Link, useNavigate} from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import axios from "../../axios";
 
@@ -13,7 +12,7 @@ function SalesReport() {
   const [focus, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
-  
+
   useEffect(() => {
     axios
       .get("/order/get-sales-report")
@@ -22,7 +21,7 @@ function SalesReport() {
 
         setReport(() => {
           return resp.data?.report.map((i) => {
-            return { ...i, id: Math.random()};
+            return { ...i, id: Math.random() };
           });
         });
       })
@@ -32,16 +31,15 @@ function SalesReport() {
   }, []);
 
   const filterReport = () => {
-  const payload={fromDate,toDate}
+    const payload = { fromDate, toDate };
     axios
-      .post("/order/get-filter-report",payload)
+      .post("/order/get-filter-report", payload)
       .then((resp) => {
         setReport(() => {
           return resp.data?.report.map((i) => {
-            return { ...i, id: Math.random()};
+            return { ...i, id: Math.random() };
           });
         });
-      
       })
       .catch((err) => {
         console.log(err);
@@ -49,19 +47,23 @@ function SalesReport() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90, valueGetter:(params)=>params.row.products.id }
-    ,
+    {
+      field: "id",
+      headerName: "ID",
+      width: 90,
+      valueGetter: (params) => params.row.products.id,
+    },
     {
       field: "products.product",
       headerName: "Item",
       width: 200,
-      valueGetter:(params)=> params.row.products.product
+      valueGetter: (params) => params.row.products.product,
     },
     {
       field: "products.quantity",
       headerName: "Quantity",
       width: 200,
-      valueGetter:(params)=> params.row.products.quantity
+      valueGetter: (params) => params.row.products.quantity,
     },
 
     {
@@ -73,14 +75,13 @@ function SalesReport() {
       field: "products",
       headerName: "Total",
       width: 160,
-      valueGetter:(params)=> params.row.products.price
-    
+      valueGetter: (params) => params.row.products.price,
     },
   ];
 
   return (
     <div style={{ width: "100%", margin: "75px", flex: 4 }}>
-      <div style={{display:"flex"}}>
+      <div style={{ display: "flex" }}>
         <TextField
           style={{ margin: "50px" }}
           onFocus={onFocus}
@@ -106,11 +107,12 @@ function SalesReport() {
           type={hasValue || focus ? "datetime-local" : "text"}
           onChange={(e) => setToDate(e.target.value)}
         />
-        
+
         <Button
           variant="contained"
-          style={{height:"50px",marginTop:"50px" }}
-          onClick={filterReport}>
+          style={{ height: "50px", marginTop: "50px" }}
+          onClick={filterReport}
+        >
           Send
         </Button>
       </div>
@@ -123,9 +125,13 @@ function SalesReport() {
         checkboxSelection
         autoHeight={true}
       />
-      <p style={{textAlign:"end"}}> TOTAL   :  {report?.reduce((a,b)=>{
-        return a+b.products.price
-      },0)}</p>
+      <p style={{ textAlign: "end" }}>
+        {" "}
+        TOTAL :{" "}
+        {report?.reduce((a, b) => {
+          return a + b.products.price;
+        }, 0)}
+      </p>
     </div>
   );
 }

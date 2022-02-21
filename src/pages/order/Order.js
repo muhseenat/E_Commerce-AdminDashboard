@@ -1,22 +1,15 @@
-
-import './order.css';
+import "./order.css";
 import React, { useState, useEffect } from "react";
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-
-
 import MenuItem from "@mui/material/MenuItem";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-
 import Paper from "@mui/material/Paper";
-
 import Select from "@mui/material/Select";
 import axios from "../../axios";
 
@@ -51,34 +44,35 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Order() {
-
   const [order, setOrders] = useState([]);
- const statusOptions=['placed','shipped','delivered']
- const navigate = useNavigate()
- useEffect(()=>{
-    axios.get('/order/getorders').then((resp)=>{
-     
-      console.log(resp)
-      setOrders(resp.data?.resp)
-    }).catch((err)=>{
-      console.log(err);
-    })
- },[])
- const changeStatus =(e,orderId,prodId)=>{
- const data={status:e.target.value,orderId,prodId}
-    axios.put('/order/changestatus',data).then((resp)=>{
-     navigate('/order')
-    //  window.location.reload();
-    }).catch((err)=>{
-      console.log(err)
-    })
- }
- 
+  const statusOptions = ["placed", "shipped", "delivered"];
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get("/order/getorders")
+      .then((resp) => {
+      
+        setOrders(resp.data?.resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const changeStatus = (e, orderId, prodId) => {
+    const data = { status: e.target.value, orderId, prodId };
+    axios
+      .put("/order/changestatus", data)
+      .then((resp) => {
+        navigate("/order");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
-    <div className='orderpage'>
-
-<TableContainer
+    <div className="orderpage">
+      <TableContainer
         style={{ marginTop: "40px", marginLeft: "10px" }}
         component={Paper}
       >
@@ -105,31 +99,39 @@ function Order() {
                 <StyledTableCell>{ord.userId}</StyledTableCell>
                 <StyledTableCell>{ord.products.product}</StyledTableCell>
                 <StyledTableCell>{ord.products.quantity}</StyledTableCell>
-                <StyledTableCell>{ord.products.price*ord.products.quantity}</StyledTableCell>
+                <StyledTableCell>
+                  {ord.products.price * ord.products.quantity}
+                </StyledTableCell>
                 <StyledTableCell>{ord.method}</StyledTableCell>
 
-      
-                <StyledTableCell>{ord.products.status === 'delivered'?'delivered':<Select labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          defaultValue={ord.products.status}
-          onChange={(e) => {
-            changeStatus(e,ord._id,ord.products.id);
-          }}
-  
-          MenuProps={MenuProps}>
-                {statusOptions.map((i,index)=> <MenuItem key={index}   value={i}>{i}</MenuItem>)}
-                </Select>}
-              </StyledTableCell>
-
+                <StyledTableCell>
+                  {ord.products.status === "delivered" ? (
+                    "delivered"
+                  ) : (
+                    <Select
+                      labelId="demo-multiple-name-label"
+                      id="demo-multiple-name"
+                      defaultValue={ord.products.status}
+                      onChange={(e) => {
+                        changeStatus(e, ord._id, ord.products.id);
+                      }}
+                      MenuProps={MenuProps}
+                    >
+                      {statusOptions.map((i, index) => (
+                        <MenuItem key={index} value={i}>
+                          {i}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    
-
     </div>
-  )
+  );
 }
 
-export default Order
+export default Order;

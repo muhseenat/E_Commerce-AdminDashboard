@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
-import {useNavigate} from 'react-router-dom'
-// import { Row, Col, Button, Alert } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./login.css";
 import axios from "../../axios";
 function Login() {
@@ -17,20 +17,19 @@ function Login() {
     }
   }, []);
 
-
   const adminLogin = (e) => {
     e.preventDefault();
     const loginData = { email, password };
-    console.log(loginData);
-      axios.post("auth/admin/login", loginData).then((resp) => {
-        console.log(resp);
+
+    axios
+      .post("auth/admin/login", loginData)
+      .then((resp) => {
         localStorage.setItem("token", resp.data.adminToken);
-        navigate('/');
-      }).catch((err)=>{
-      
-        setError(err.response?.data.errorMessage);
+        navigate("/");
       })
-    
+      .catch((err) => {
+        setError(err.response?.data.errorMessage);
+      });
   };
   return (
     <div className="login">
@@ -55,12 +54,10 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error && (
-   
-            <p style={{color:"red"}}>{error}</p>
-        
-        )}
-        <button className="loginbtn" type="submit">Login</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button className="loginbtn" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

@@ -1,9 +1,8 @@
 import "./viewproduct.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
 import { useState, useEffect } from "react";
 import axios from "../../axios";
 export default function ViewProduct() {
@@ -15,7 +14,6 @@ export default function ViewProduct() {
     axios
       .get("product/getproduct")
       .then((resp) => {
-        console.log(resp.data);
         setProduct(() => {
           return resp.data?.map((i) => {
             return { ...i, id: i._id };
@@ -26,21 +24,23 @@ export default function ViewProduct() {
         console.log(error);
       });
   }, []);
- 
-  const handleDelete=(id)=>{
-    if(window.confirm("Are you Sure?")){
-      axios.delete(`product/deleteproduct/${id}`).then((resp)=>{
-        navigate('/products');
-      }).catch((err)=>{
-        console.log(err);
-      })
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you Sure?")) {
+      axios
+        .delete(`product/deleteproduct/${id}`)
+        .then((resp) => {
+          navigate("/products");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-     
-  }
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
-   
+
     {
       field: "name",
       headerName: "Product",
@@ -48,7 +48,11 @@ export default function ViewProduct() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img1?.[0].url} alt="" />
+            <img
+              className="productListImg"
+              src={params.row.img1?.[0].url}
+              alt=""
+            />
             {params.row.name}
           </div>
         );
@@ -74,16 +78,15 @@ export default function ViewProduct() {
       field: "action",
       headerName: "Action",
       width: 150,
-      
+
       renderCell: (params) => {
-  console.log(params.row.id);
+        console.log(params.row.id);
         return (
           <>
-            <Link to={"/product/"+params.row._id}>
-          
+            <Link to={"/product/" + params.row._id}>
               <button className="productListEdit">Edit</button>
             </Link>
-          
+
             <DeleteOutline
               className="productListDelete"
               onClick={() => handleDelete(params.row.id)}

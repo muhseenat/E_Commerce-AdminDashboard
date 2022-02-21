@@ -75,7 +75,7 @@ const Category = () => {
     setSubCategory("");
     try {
       const data = { selectedCategory, subCategory };
-      console.log(data);
+
       if (selectedCategory.length > 0 && subCategory.length > 0) {
         axios
           .post("category/createCategory", data, {
@@ -84,10 +84,7 @@ const Category = () => {
             },
           })
           .then((resp) => {
-            console.log(resp.data);
-
             setCategoryManagement(resp.data.data);
-            console.log(resp);
           });
       } else {
         alert("Please Enter the Value");

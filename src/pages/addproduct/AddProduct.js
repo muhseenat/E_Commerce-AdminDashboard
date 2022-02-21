@@ -1,5 +1,5 @@
-import React, { useState ,useRef} from "react";
-import {useNavigate} from 'react-router-dom'
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import "./addproduct.css";
-import axios from '../../axios'
+import axios from "../../axios";
 import Paper from "@mui/material/Paper";
 
 const ITEM_HEIGHT = 48;
@@ -24,7 +24,7 @@ const MenuProps = {
 };
 
 function AddProduct() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategory, setSubCategory] = useState([]);
   const [productName, setProductName] = useState("");
@@ -35,102 +35,108 @@ function AddProduct() {
   const [discount, setDiscount] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [img1, setimg1] = useState({});
-    const [img2, setimg2] = useState({});
-    const [img3, setimg3] = useState({});
-    const [img4, setimg4] = useState({});
-    const input1= useRef()
-    const input2= useRef()
-    const input3= useRef()
-    const input4= useRef()
+  const [img2, setimg2] = useState({});
+  const [img3, setimg3] = useState({});
+  const [img4, setimg4] = useState({});
+  const input1 = useRef();
+  const input2 = useRef();
+  const input3 = useRef();
+  const input4 = useRef();
 
-  const getSubCategory=(mainCat)=>{
-      setSelectedCategory(mainCat);
-    axios.get(`category/getSubCategory?main=${mainCat}`).then((resp)=>{
-        console.log(resp.data.data);
-        setSubCategory(resp.data.data)
-    }).catch((error)=>{
+  const getSubCategory = (mainCat) => {
+    setSelectedCategory(mainCat);
+    axios
+      .get(`category/getSubCategory?main=${mainCat}`)
+      .then((resp) => {
+        setSubCategory(resp.data.data);
+      })
+      .catch((error) => {
         console.log(error);
-    })
-    
-  }
+      });
+  };
 
-  const triggerInput=(target)=>{
-   
-       target.current.click()
-  }
+  const triggerInput = (target) => {
+    target.current.click();
+  };
 
-  const selectimg1=(e)=>{
-    if(e.target.files.length>0){
+  const selectimg1 = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const url = URL.createObjectURL(file);
 
- 
-     const file =e.target.files[0]
-     const url=URL.createObjectURL(file)
-     console.log({file,url});
-     setimg1({file,url})
+      setimg1({ file, url });
     }
-  }
+  };
 
-  const selectimg2=(e)=>{
-    if(e.target.files.length>0){
-    const file=e.target.files[0]
-    const url=URL.createObjectURL(file)
-    setimg2({file,url})
+  const selectimg2 = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const url = URL.createObjectURL(file);
+      setimg2({ file, url });
     }
-  }
-  const selectimg3=(e)=>{
-    if(e.target.files.length>0){
-    const file=e.target.files[0]
-    const url=URL.createObjectURL(file)
-    setimg3({file,url})
+  };
+  const selectimg3 = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const url = URL.createObjectURL(file);
+      setimg3({ file, url });
     }
-  }
- const selectimg4=(e)=>{
-  if(e.target.files.length>0){
-   const file=e.target.files[0]
-   const url=URL.createObjectURL(file)
-   setimg4({file,url})
-  }
- }
+  };
+  const selectimg4 = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const url = URL.createObjectURL(file);
+      setimg4({ file, url });
+    }
+  };
 
- const dummyimg="https://www.bastiaanmulder.nl/wp-content/uploads/2013/11/dummy-image-square.jpg"
+  const dummyimg =
+    "https://www.bastiaanmulder.nl/wp-content/uploads/2013/11/dummy-image-square.jpg";
 
- const addproduct=()=>{
-     const data={productName,selectedCategory,selectedSubCategory,description,price,size,quantity,discount}
-     const formData=new FormData()
-     formData.append("img",img1.file)
-     formData.append("img",img2.file)
-     formData.append("img",img3.file)
-     formData.append("img",img4.file)
+  const addproduct = () => {
+    const data = {
+      productName,
+      selectedCategory,
+      selectedSubCategory,
+      description,
+      price,
+      size,
+      quantity,
+      discount,
+    };
+    const formData = new FormData();
+    formData.append("img", img1.file);
+    formData.append("img", img2.file);
+    formData.append("img", img3.file);
+    formData.append("img", img4.file);
 
-     formData.append("data",JSON.stringify(data))
-     console.log(formData);
-     axios.post('product/addProduct',formData,{
-       headers:{
-         'Content-Type': "multipart/form-data"
-         
-       }
-     }).then((resp)=>{
-       
-       alert("Successfully addedd")
-       setProductName("")
-       setSelectedCategory("")
-       setSelectedSubCategory("")
-       setDescription("")
-       setPrice("")
-       setSize("")
-       setQuantity("")
-       setDiscount("")
-       setimg1({})
-       setimg2({})
-       setimg3({})
-       setimg4({})
-      navigate('/products')
-     }).catch((error)=>{
-       console.log(error);
-     })
- }
+    formData.append("data", JSON.stringify(data));
 
-
+    axios
+      .post("product/addProduct", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((resp) => {
+        setProductName("");
+        setSelectedCategory("");
+        setSelectedSubCategory("");
+        setDescription("");
+        setPrice("");
+        setSize("");
+        setQuantity("");
+        setDiscount("");
+        setimg1({});
+        setimg2({});
+        setimg3({});
+        setimg4({});
+        navigate("/products");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const sizeOptions = ["S", "M", "L"];
   const categoryOptions = ["Clothes", "Hijab", "Accessories"];
@@ -153,7 +159,9 @@ function AddProduct() {
             <Select
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
-              onChange={(e)=>{getSubCategory(e.target.value)}}
+              onChange={(e) => {
+                getSubCategory(e.target.value);
+              }}
               input={<OutlinedInput label="Name" />}
               MenuProps={MenuProps}
             >
@@ -171,9 +179,13 @@ function AddProduct() {
             <Select
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
-              disabled={subCategory.length>0?false:true}
+              disabled={subCategory.length > 0 ? false : true}
               input={<OutlinedInput label="Name" />}
-              MenuProps={MenuProps} onChange={(e)=>{setSelectedSubCategory(e.target.value)}}>
+              MenuProps={MenuProps}
+              onChange={(e) => {
+                setSelectedSubCategory(e.target.value);
+              }}
+            >
               {subCategory.map((category, index) => {
                 return (
                   <MenuItem key={index} value={category}>
@@ -255,34 +267,86 @@ function AddProduct() {
           />
         </Box>
         <Box>
-        <div  style={{ display:"flex",margin:"10px",justifyContent:"space-around"}} >
-		<div>
-
-      <img  onClick={()=>{triggerInput(input1)}} style={{  height:"150px"}} src={img1.url||dummyimg}/>
-      <input hidden ref={input1} type="file" name="file1" onChange={selectimg1}/>
-    </div>
-    <div>
-
-      <img onClick={()=>{triggerInput(input2)}} style={{  height:"150px"}} src={img2.url||dummyimg}/>
-      <input hidden ref={input2} type="file" name="file2" onChange={selectimg2}/>
-    </div>
-    <div>
-
-      <img onClick={()=>{triggerInput(input3)}} style={{  height:"150px"}} src={img3.url||dummyimg}/>
-      <input hidden ref={input3} type="file" name="file3" onChange={selectimg3}/>
-    </div>
-    <div>
-      <img onClick={()=>{triggerInput(input4)}} style={{  height:"150px"}} src={img4.url||dummyimg}/>
-      <input hidden ref={input4} type="file" name="file4" onChange={selectimg4}/>
-
-    </div>
-
-      
-		</div>
+          <div
+            style={{
+              display: "flex",
+              margin: "10px",
+              justifyContent: "space-around",
+            }}
+          >
+            <div>
+              <img
+                onClick={() => {
+                  triggerInput(input1);
+                }}
+                style={{ height: "150px" }}
+                src={img1.url || dummyimg}
+              />
+              <input
+                hidden
+                ref={input1}
+                type="file"
+                name="file1"
+                onChange={selectimg1}
+              />
+            </div>
+            <div>
+              <img
+                onClick={() => {
+                  triggerInput(input2);
+                }}
+                style={{ height: "150px" }}
+                src={img2.url || dummyimg}
+              />
+              <input
+                hidden
+                ref={input2}
+                type="file"
+                name="file2"
+                onChange={selectimg2}
+              />
+            </div>
+            <div>
+              <img
+                onClick={() => {
+                  triggerInput(input3);
+                }}
+                style={{ height: "150px" }}
+                src={img3.url || dummyimg}
+              />
+              <input
+                hidden
+                ref={input3}
+                type="file"
+                name="file3"
+                onChange={selectimg3}
+              />
+            </div>
+            <div>
+              <img
+                onClick={() => {
+                  triggerInput(input4);
+                }}
+                style={{ height: "150px" }}
+                src={img4.url || dummyimg}
+              />
+              <input
+                hidden
+                ref={input4}
+                type="file"
+                name="file4"
+                onChange={selectimg4}
+              />
+            </div>
+          </div>
         </Box>
 
         <Box>
-          <Button onClick={addproduct} style={{ margin: "20px 20px 15px 10px" }} variant="contained">
+          <Button
+            onClick={addproduct}
+            style={{ margin: "20px 20px 15px 10px" }}
+            variant="contained"
+          >
             Add
           </Button>
         </Box>
