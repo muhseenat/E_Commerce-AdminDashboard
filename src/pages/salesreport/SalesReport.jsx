@@ -109,7 +109,7 @@ function SalesReport() {
         
         <Button
           variant="contained"
-          style={{height:"50px",marginTop:"50git adepx" }}
+          style={{height:"50px",marginTop:"50px" }}
           onClick={filterReport}>
           Send
         </Button>

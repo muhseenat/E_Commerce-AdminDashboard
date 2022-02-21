@@ -1,5 +1,5 @@
 import "./widgetSm.css";
-import { Visibility } from "@mui/icons-material";
+import {  Visibility } from "@mui/icons-material";
 import { useState,useEffect } from "react";
 import {useNavigate} from 'react-router-dom'
 import axios from '../.././axios'
@@ -10,8 +10,10 @@ export default function WidgetSm() {
   const navigate = useNavigate();
  useEffect(()=>{
   axios.get('/users/get-latest-users').then((resp)=>{
-    console.log((resp));
+
     setUsers(resp.data?.users)
+  }).catch((err)=>{
+    console.log(err);
   }) 
  },[])
 
@@ -26,6 +28,8 @@ export default function WidgetSm() {
           <div className="widgetSmUser">
             <span className="widgetSmUsername">{user.name}</span>
           </div>
+  
+          
           <button className="widgetSmButton" onClick={()=>navigate(`/user/${user._id}`)}>
         
             <Visibility className="widgetSmIcon" />
