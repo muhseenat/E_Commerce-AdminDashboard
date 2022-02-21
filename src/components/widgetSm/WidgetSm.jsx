@@ -1,86 +1,40 @@
 import "./widgetSm.css";
 import { Visibility } from "@mui/icons-material";
+import { useState,useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
+import axios from '../.././axios'
 
 export default function WidgetSm() {
+
+ const [users,setUsers] = useState([])
+  const navigate = useNavigate();
+ useEffect(()=>{
+  axios.get('/users/get-latest-users').then((resp)=>{
+    console.log((resp));
+    setUsers(resp.data?.users)
+  }) 
+ },[])
+
   return (
     <div className="widgetSm">
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
+        
+        {users.length>0 && users.map((user)=>
         <li className="widgetSmListItem">
-          <img
-            src="https://images.pexels.com/photos/9735419/pexels-photo-9735419.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-            className="widgetSmImg"
-          />
+        
           <div className="widgetSmUser">
-            <span className="widgetSmUsername">Zahir</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
+            <span className="widgetSmUsername">{user.name}</span>
           </div>
-          <button className="widgetSmButton">
+          <button className="widgetSmButton" onClick={()=>navigate(`/user/${user._id}`)}>
+        
             <Visibility className="widgetSmIcon" />
             Display
           </button>
         </li>
-        <li className="widgetSmListItem">
-          <img
-            src="https://images.pexels.com/photos/9735419/pexels-photo-9735419.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-            className="widgetSmImg"
-          />
-          <div className="widgetSmUser">
-            <span className="widgetSmUsername">Zahir</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-            src="https://images.pexels.com/photos/9735419/pexels-photo-9735419.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-            className="widgetSmImg"
-          />
-          <div className="widgetSmUser">
-            <span className="widgetSmUsername">Zahir</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-            src="https://images.pexels.com/photos/9735419/pexels-photo-9735419.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-            className="widgetSmImg"
-          />
-          <div className="widgetSmUser">
-            <span className="widgetSmUsername">Zahir</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
-        </li>
-        <li className="widgetSmListItem">
-          <img
-            src="https://images.pexels.com/photos/9735419/pexels-photo-9735419.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-            alt=""
-            className="widgetSmImg"
-          />
-          <div className="widgetSmUser">
-            <span className="widgetSmUsername">Zahir</span>
-            <span className="widgetSmUserTitle">Software Engineer</span>
-          </div>
-          <button className="widgetSmButton">
-            <Visibility className="widgetSmIcon" />
-            Display
-          </button>
-        </li>
+        
+        )}
+        
       </ul>
     </div>
   );
