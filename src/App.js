@@ -39,8 +39,7 @@ function App() {
           <Route exact path="/offer/product" element={<ProductOffer/>}></Route>
           <Route exact path="/offer/category" element={<CategoryOffer />}></Route>
           <Route exact path="/sales" element={<SalesReport />}></Route>
-         
-          {/* <Route exact path="/editproduct" element={<EditProduct />}></Route> */}
+        
          
           
           <Route path="*" element={<Error />}></Route>
