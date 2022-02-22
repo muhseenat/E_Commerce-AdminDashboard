@@ -1,8 +1,7 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
-import "./app.css";
 import Home from "./pages/home/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import Category from "./pages/category/Category";
@@ -16,6 +15,7 @@ import CouponOffer from "./pages/offer/CouponOffer";
 import ProductOffer from "./pages/offer/ProductOffer";
 import CategoryOffer from "./pages/offer/CategoryOffer";
 import SalesReport from "./pages/salesreport/SalesReport";
+import "./app.css";
 
 function App() {
   return (
