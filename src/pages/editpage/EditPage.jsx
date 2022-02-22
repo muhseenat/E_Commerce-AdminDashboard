@@ -53,9 +53,8 @@ function EditProduct() {
     axios
       .get(`product/getproductbyid/${id}`)
       .then((resp) => {
-        console.log(resp);
         const product = resp.data.product;
-        console.log(product);
+
         setProductName(product.name);
         setSelectedCategory(product.mainCategory);
         setSelectedSubCategory(product.subCategory);

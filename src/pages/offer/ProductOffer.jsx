@@ -4,14 +4,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-
 import OutlinedInput from "@mui/material/OutlinedInput";
-
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-
 import axios from "../../axios";
 
 const ITEM_HEIGHT = 48;
@@ -114,7 +111,7 @@ function ProductOffer() {
               }}
             />
           </Box>
-         
+
           <Box>
             <Button
               type="submit"

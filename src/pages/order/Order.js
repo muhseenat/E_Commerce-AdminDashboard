@@ -51,7 +51,6 @@ function Order() {
     axios
       .get("/order/getorders")
       .then((resp) => {
-      
         setOrders(resp.data?.resp);
       })
       .catch((err) => {

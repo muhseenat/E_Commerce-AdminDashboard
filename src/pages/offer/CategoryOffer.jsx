@@ -102,7 +102,7 @@ function CategoryOffer() {
               );
             })}
           </Select>
-       
+
           <Select
             style={{ marginTop: "10px" }}
             label="SubCategory"

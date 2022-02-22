@@ -2,7 +2,7 @@ import "./widgetSm.css";
 import { Visibility } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../.././axios";
+import axios from "../../axios";
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
