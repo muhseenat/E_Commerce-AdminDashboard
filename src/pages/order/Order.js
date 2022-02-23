@@ -45,7 +45,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function Order() {
   const [order, setOrders] = useState([]);
-  const statusOptions = ["placed", "shipped", "delivered"];
+  const statusOptions = ["placed", "shipped", "delivered", "Cancelled"];
   const navigate = useNavigate();
   useEffect(() => {
     axios

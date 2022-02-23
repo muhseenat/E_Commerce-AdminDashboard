@@ -111,7 +111,6 @@ function AddProduct() {
     formData.append("img", img4.file);
 
     formData.append("data", JSON.stringify(data));
-git 
     axios
       .post("product/addProduct", formData, {
         headers: {
