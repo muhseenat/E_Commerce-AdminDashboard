@@ -10,7 +10,6 @@ function CouponOffer() {
   const [name, setName] = useState("");
   const [discount, setDiscount] = useState("");
   const [maxamount, setMaxamount] = useState("");
-
   const [minPurchase, setMinPurchase] = useState("");
   const [couponcode, setCouponcode] = useState("");
   const [error, setError] = useState("");
@@ -38,7 +37,6 @@ function CouponOffer() {
       })
       .catch((err) => {
         console.log(err);
-
         setName("");
         setDiscount("");
         setMaxamount("");

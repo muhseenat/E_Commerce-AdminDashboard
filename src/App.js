@@ -20,8 +20,6 @@ import "./app.css";
 function App() {
   return (
     <Router>
- 
-
       <Topbar />
       <div className="container">
         <Sidebar />
@@ -39,12 +37,8 @@ function App() {
           <Route exact path="/offer/product" element={<ProductOffer/>}></Route>
           <Route exact path="/offer/category" element={<CategoryOffer />}></Route>
           <Route exact path="/sales" element={<SalesReport />}></Route>
-        
-         
-          
           <Route path="*" element={<Error />}></Route>
         </Routes>
-        
       </div>
     </Router>
   );

@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 export default function Sidebar() {
   const [istoken, setIsToken] = useState(false);
-
   const token = localStorage.getItem("token");
 
   if (!token) {

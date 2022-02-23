@@ -44,7 +44,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
@@ -165,7 +164,6 @@ const Category = () => {
                 sx={{ m: 1, minWidth: 100 }}
                 aria-label="customized table"
               >
-                {/* <Table>{++ind}</td> */}
                 <StyledTableCell>{cat.mainCategory}</StyledTableCell>
 
                 <StyledTableCell>
