@@ -45,53 +45,64 @@ function SalesReport() {
         console.log(err);
       });
   };
-  
-  const dayReport=()=>{
-   axios.get('/order/get-daily-report').then((resp)=>{
-    setReport(() => {
-      return resp.data?.report.map((i) => {
-        return { ...i, id: Math.random() };
-      });
-    });
-   }).catch((err)=>{
-     console.log(err);
-   })
-  }
 
-  const weekReport=()=>{
-    axios.get('/order/get-weekly-report').then((resp)=>{
-      setReport(() => {
-        return resp.data?.report.map((i) => {
-          return { ...i, id: Math.random() };
+  const dayReport = () => {
+    axios
+      .get("/order/get-daily-report")
+      .then((resp) => {
+        setReport(() => {
+          return resp.data?.report.map((i) => {
+            return { ...i, id: Math.random() };
+          });
         });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-     }).catch((err)=>{
-       console.log(err);
-     })
-  }
-  const monthReport=()=>{
-    axios.get('/order/get-monthly-report').then((resp)=>{
-      setReport(() => {
-        return resp.data?.report.map((i) => {
-          return { ...i, id: Math.random() };
-        });
-      });
-     }).catch((err)=>{
-       console.log(err);
-     })
-  }
-  const yearlyReport=()=>{
-    axios.get('/order/get-yearly-report').then((resp)=>{
-      setReport(() => {
-        return resp.data?.report.map((i) => {
-          return { ...i, id: Math.random() };
-        });
-      });
-     }).catch((err)=>{
-       console.log(err);
-     })
-  }
+  };
 
+  const weekReport = () => {
+    axios
+      .get("/order/get-weekly-report")
+      .then((resp) => {
+        setReport(() => {
+          return resp.data?.report.map((i) => {
+            return { ...i, id: Math.random() };
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const monthReport = () => {
+    axios
+      .get("/order/get-monthly-report")
+      .then((resp) => {
+        setReport(() => {
+          return resp.data?.report.map((i) => {
+            return { ...i, id: Math.random() };
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const yearlyReport = () => {
+    axios
+      .get("/order/get-yearly-report")
+      .then((resp) => {
+        setReport(() => {
+          return resp.data?.report.map((i) => {
+            return { ...i, id: Math.random() };
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const columns = [
     {
@@ -128,34 +139,36 @@ function SalesReport() {
 
   return (
     <div style={{ width: "100%", margin: "75px", flex: 4 }}>
-
-    <div><Button
+      <div>
+        <Button
           variant="contained"
-          style={{ height: "50px", marginTop: "50px",marginRight:"10px"  }}
+          style={{ height: "50px", marginRight: "10px" }}
           onClick={dayReport}
         >
           DAY
-        </Button><Button
+        </Button>
+        <Button
           variant="contained"
-          style={{ height: "50px", marginTop: "50px",marginRight:"10px" }}
+          style={{ height: "50px", marginRight: "10px" }}
           onClick={weekReport}
         >
           Weekly
         </Button>
         <Button
           variant="contained"
-          style={{ height: "50px", marginTop: "50px" ,marginRight:"10px" }}
+          style={{ height: "50px", marginRight: "10px" }}
           onClick={monthReport}
         >
           Monthly
         </Button>
         <Button
           variant="contained"
-          style={{ height: "50px", marginTop: "50px",marginRight:"10px"  }}
+          style={{ height: "50px", marginRight: "10px" }}
           onClick={yearlyReport}
         >
           Yearly
-        </Button></div>
+        </Button>
+      </div>
       <div style={{ display: "flex" }}>
         <TextField
           style={{ margin: "50px" }}
