@@ -104,8 +104,9 @@ function Order() {
                 <StyledTableCell>{ord.method}</StyledTableCell>
 
                 <StyledTableCell>
-                  {ord.products.status === "delivered" ? (
-                    "delivered"
+            
+                  {ord.products.status === ("delivered"||"Cancelled") ? (
+                    ord.products.status
                   ) : (
                     <Select
                       labelId="demo-multiple-name-label"
