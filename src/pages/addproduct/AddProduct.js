@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import CircularProgress from '@mui/material/CircularProgress';
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import Dialog from '@mui/material/Dialog';
 import "./addproduct.css";
 import axios from "../../axios";
 import Paper from "@mui/material/Paper";
@@ -23,8 +25,18 @@ const MenuProps = {
   },
 };
 
+
+
+
+ 
+
+  
+  
+
+
 function AddProduct() {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategory, setSubCategory] = useState([]);
   const [productName, setProductName] = useState("");
@@ -42,6 +54,9 @@ function AddProduct() {
   const input2 = useRef();
   const input3 = useRef();
   const input4 = useRef();
+
+ 
+ 
 
   const getSubCategory = (mainCat) => {
     setSelectedCategory(mainCat);
@@ -94,6 +109,7 @@ function AddProduct() {
     "https://www.bastiaanmulder.nl/wp-content/uploads/2013/11/dummy-image-square.jpg";
 
   const addproduct = () => {
+  setOpen(true)
     const data = {
       productName,
       selectedCategory,
@@ -118,18 +134,7 @@ function AddProduct() {
         },
       })
       .then((resp) => {
-        setProductName("");
-        setSelectedCategory("");
-        setSelectedSubCategory("");
-        setDescription("");
-        setPrice("");
-        setSize("");
-        setQuantity("");
-        setDiscount("");
-        setimg1({});
-        setimg2({});
-        setimg3({});
-        setimg4({});
+        setOpen(false);
         navigate("/products");
       })
       .catch((error) => {
@@ -141,7 +146,25 @@ function AddProduct() {
   const categoryOptions = ["Clothes", "Hijab", "Accessories"];
   return (
     <div className="addproduct">
+
+   {open && <Dialog  open={open}
+     aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth={true}
+        
+        >
+         
+    <CircularProgress  size={40}
+        left={-20}
+        top={10}
+        status={'loading'}
+        style={{marginLeft: '50%',marginBottom:'25%',marginTop:'25%'}}/>
+
+        <h4 style={{alignText:"center"}}>LOADING...</h4>
+    </Dialog>
+   }
       <Paper style={{ marginLeft: "10px", marginRight: "50px" }}>
+     
         <Box>
           <TextField
             style={{ marginTop: "10px", marginLeft: "10px" }}
@@ -350,6 +373,7 @@ function AddProduct() {
           </Button>
         </Box>
       </Paper>
+  
     </div>
   );
 }

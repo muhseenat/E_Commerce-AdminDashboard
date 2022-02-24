@@ -1,14 +1,13 @@
 import "./userList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from "../../axios";
 import { useState, useEffect } from "react";
 
 export default function UserList() {
   const [data, setData] = useState([]);
 
-  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("users/getusers")
@@ -28,7 +27,11 @@ export default function UserList() {
     axios
       .put(`users/block/${id}`)
       .then((resp) => {
-        navigate("/users");
+        setData(() => {
+          return resp.data?.users.map((i) => {
+            return { ...i, id: i._id };
+          });
+        });
       })
       .catch((err) => {
         console.log(err);

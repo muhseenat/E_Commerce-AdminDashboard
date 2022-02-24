@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid ,GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "../../axios";
+
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+}
+
+
 
 function SalesReport() {
   const [report, setReport] = useState([]);
@@ -212,6 +223,9 @@ function SalesReport() {
         rowsPerPageOptions={[20]}
         checkboxSelection
         autoHeight={true}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
       />
       <p style={{ textAlign: "end" }}>
         {" "}
