@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid ,GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "../../axios";
-
 
 function CustomToolbar() {
   return (
@@ -13,8 +16,6 @@ function CustomToolbar() {
   );
 }
 
-
-
 function SalesReport() {
   const [report, setReport] = useState([]);
   const [toDate, setToDate] = useState();
@@ -23,6 +24,15 @@ function SalesReport() {
   const [focus, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+
+  // preventing data
+  var dttoday = new Date();
+  var month = dttoday.getMonth() + 1;
+  var day = dttoday.getDate();
+  var year = dttoday.getFullYear();
+  if (month < 10) month = "0" + month.toString();
+  if (day < 10) day = "0" + day.toString();
+  var maxdate = year + "-" + month + "-" + day;
 
   useEffect(() => {
     axios
@@ -180,40 +190,37 @@ function SalesReport() {
           Yearly
         </Button>
       </div>
-      <div style={{ display: "flex" }}>
-        <TextField
-          style={{ margin: "50px" }}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          id="outlined-basic"
-          required
-          variant="outlined"
-          type="date"
-          label="From"
-          type={hasValue || focus ? "datetime-local" : "text"}
-          onChange={(e) => setFromDate(e.target.value)}
-        />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div>
+          <label>From Date</label>
+          <input
+            style={{ margin: "50px" }}
+            type={"date"}
+            max={maxdate}
+            onChange={(e) => setFromDate(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>To Date</label>
+          <input
+            style={{ margin: "50px" }}
+            type={"date"}
+            min={fromDate}
+            max={maxdate}
+            onChange={(e) => setToDate(e.target.value)}
+          />
+        </div>
 
-        <TextField
-          style={{ margin: "50px" }}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          id="outlined-basic"
-          required
-          variant="outlined"
-          type="date"
-          label="To"
-          type={hasValue || focus ? "datetime-local" : "text"}
-          onChange={(e) => setToDate(e.target.value)}
-        />
-
-        <Button
-          variant="contained"
-          style={{ height: "50px", marginTop: "50px" }}
-          onClick={filterReport}
-        >
-          Send
-        </Button>
+        <div>
+          <Button
+            variant="contained"
+            onClick={() => {
+              filterReport();
+            }}
+          >
+            Send
+          </Button>
+        </div>
       </div>
       <DataGrid
         rows={report}
